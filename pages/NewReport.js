@@ -6,6 +6,7 @@ import SelectDropdown from "react-native-select-dropdown";
 
 import MoneyReportModal from "../Components/MoneyReportModal";
 import ExpensesMoneyReportModal from "../Components/ExpensesMoneyReportModal";
+import FuelReportModal from "../Components/FuelReportModal";
 
 import { globalStyles } from "../style/style";
 
@@ -29,9 +30,11 @@ export default function NewReport() {
   const [dtEnd, setDtEnd] = useState("");
   const [reportGetMoney, setReportGetMoney] = useState([]);
   const [reportExpensesMoney, setReportExpensesMoney] = useState([]);
+  const [reportFuel, setReportFuel] = useState([]);
 
   // modals
   const [isOpenMoneyReport, setIsOpenMoneyReport] = useState(false);
+  const [isOpenFuelReport, setIsOpenFuelReport] = useState(false);
   const [isOpenExpensesMoneyReport, setIsOpenExpensesMoneyReport] =
     useState(false);
 
@@ -78,20 +81,14 @@ export default function NewReport() {
     setIsOpenExpensesMoneyReport(true);
   }
 
-  function getReportMoney() {
-    let data = 0;
-
-    reportGetMoney.forEach((item) => {
-      data += item.money;
-    });
-
-    return data;
+  function handleViewFuelReport() {
+    setIsOpenFuelReport(true);
   }
 
-  function getExpensesMoney() {
+  function getSumReport(arr) {
     let data = 0;
 
-    reportExpensesMoney.forEach((item) => {
+    arr.forEach((item) => {
       data += item.money;
     });
 
@@ -115,6 +112,15 @@ export default function NewReport() {
           setOpen={setIsOpenExpensesMoneyReport}
           reportGetMoney={reportExpensesMoney}
           setReportGetMoney={setReportExpensesMoney}
+        />
+      )}
+
+      {isOpenFuelReport && (
+        <FuelReportModal
+          open={isOpenFuelReport}
+          setOpen={setIsOpenFuelReport}
+          reportGetMoney={reportFuel}
+          setReportGetMoney={setReportFuel}
         />
       )}
 
@@ -246,7 +252,7 @@ export default function NewReport() {
 
       <View style={[globalStyles.row]}>
         <Text style={globalStyles.rowTitle}>Полученно денег:</Text>
-        <Text> {getReportMoney()} </Text>
+        <Text> {getSumReport(reportGetMoney)} </Text>
         <TouchableOpacity onPress={handleViewMoneyReport}>
           <Text> Отчет </Text>
         </TouchableOpacity>
@@ -254,8 +260,16 @@ export default function NewReport() {
 
       <View style={[globalStyles.row, globalStyles.row_bg]}>
         <Text style={globalStyles.rowTitle}>Расход денег:</Text>
-        <Text> {getExpensesMoney()} </Text>
+        <Text> {getSumReport(reportExpensesMoney)} </Text>
         <TouchableOpacity onPress={handleViewExpensesMoneyReport}>
+          <Text> Отчет </Text>
+        </TouchableOpacity>
+      </View>
+
+      <View style={[globalStyles.row]}>
+        <Text style={globalStyles.rowTitle}>Заправки:</Text>
+        <Text> {getSumReport(reportFuel)} </Text>
+        <TouchableOpacity onPress={handleViewFuelReport}>
           <Text> Отчет </Text>
         </TouchableOpacity>
       </View>
