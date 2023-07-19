@@ -1,26 +1,29 @@
 import { useState } from "react";
-import { StatusBar } from "expo-status-bar";
+// import { StatusBar } from "expo-status-bar";
 import {
   StyleSheet,
-  Text,
-  View,
-  ImageBackground,
+  // Text,
+  // View,
+  // ImageBackground,
   SafeAreaView,
-  Button,
-  TextInput,
+  // Button,
+  // TextInput,
 } from "react-native";
+
+import "react-native-gesture-handler";
+
+import MainStack from "./navigate";
+
+// import Main from "./pages/Main";
 
 export default function App() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  function handleTextPress() {
-    console.log("HELLO");
-  }
-
   return (
     <SafeAreaView style={styles.container}>
-      <ImageBackground
+      <MainStack />
+      {/* <ImageBackground
         source={require("./assets/bg.jpg")}
         resizeMode="stretch"
         style={styles.image}
@@ -60,7 +63,7 @@ export default function App() {
             onPress={handleTextPress}
           />
         </View>
-      </ImageBackground>
+      </ImageBackground> */}
     </SafeAreaView>
   );
 }
