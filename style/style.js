@@ -12,6 +12,11 @@ export const globalStyles = StyleSheet.create({
   mainContainerTitle: {
     textAlign: "center",
   },
+  textCenter: {
+    width: "100%",
+    textAlign: "center",
+    marginBottom: 10,
+  },
   row: {
     flexDirection: "row",
     justifyContent: "space-between",

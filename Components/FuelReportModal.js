@@ -93,8 +93,6 @@ export default function FuelReportModal({
     setReportGetMoney(updatedReport);
   }
 
-  console.log("reportGetMoney", reportGetMoney);
-
   async function takePic() {
     let options = {
       quality: 1,
@@ -103,7 +101,6 @@ export default function FuelReportModal({
     };
 
     let newPhoto = await cameraRef.current.takePictureAsync(options);
-    console.log("newPhoto", newPhoto);
     setAddNewData({
       ...addNewData,
       cash_receipt: `data:image/jpg;base64,${newPhoto.base64}`,
@@ -111,7 +108,6 @@ export default function FuelReportModal({
     setIsPic(false);
   }
 
-  console.log("hasCameraPermission", hasCameraPermission);
   return (
     <Modal visible={open}>
       {isPic ? (
@@ -288,15 +284,11 @@ const styles = StyleSheet.create({
     alignItems: "center",
     padding: 10,
     backgroundColor: "white",
-    // marginBottom: 20,
   },
   rowCenter: {
     alignItems: "center",
   },
   row_list: {
-    // flexDirection: "row",
-    // justifyContent: "space-between",
-    // alignItems: "center",
     padding: 10,
     backgroundColor: "white",
     borderTopWidth: 1,

@@ -7,6 +7,7 @@ import SelectDropdown from "react-native-select-dropdown";
 import MoneyReportModal from "../Components/MoneyReportModal";
 import ExpensesMoneyReportModal from "../Components/ExpensesMoneyReportModal";
 import FuelReportModal from "../Components/FuelReportModal";
+import RouteListModal from "../Components/RouteListModal";
 
 import { globalStyles } from "../style/style";
 
@@ -31,9 +32,11 @@ export default function NewReport() {
   const [reportGetMoney, setReportGetMoney] = useState([]);
   const [reportExpensesMoney, setReportExpensesMoney] = useState([]);
   const [reportFuel, setReportFuel] = useState([]);
+  const [routeList, setRouteList] = useState([]);
 
   // modals
   const [isOpenMoneyReport, setIsOpenMoneyReport] = useState(false);
+  const [isOpenRouteList, setIsOpenRouteList] = useState(false);
   const [isOpenFuelReport, setIsOpenFuelReport] = useState(false);
   const [isOpenExpensesMoneyReport, setIsOpenExpensesMoneyReport] =
     useState(false);
@@ -85,6 +88,10 @@ export default function NewReport() {
     setIsOpenFuelReport(true);
   }
 
+  function handleRouteList() {
+    setIsOpenRouteList(true);
+  }
+
   function getSumReport(arr) {
     let data = 0;
 
@@ -121,6 +128,15 @@ export default function NewReport() {
           setOpen={setIsOpenFuelReport}
           reportGetMoney={reportFuel}
           setReportGetMoney={setReportFuel}
+        />
+      )}
+
+      {isOpenRouteList && (
+        <RouteListModal
+          open={isOpenRouteList}
+          setOpen={setIsOpenRouteList}
+          reportGetMoney={routeList}
+          setReportGetMoney={setRouteList}
         />
       )}
 
@@ -270,6 +286,15 @@ export default function NewReport() {
         <Text style={globalStyles.rowTitle}>Заправки:</Text>
         <Text> {getSumReport(reportFuel)} </Text>
         <TouchableOpacity onPress={handleViewFuelReport}>
+          <Text> Отчет </Text>
+        </TouchableOpacity>
+      </View>
+
+      <View style={[globalStyles.row, globalStyles.row_bg]}>
+        <Text style={globalStyles.rowTitle}>
+          Маршрутный лист ({routeList.length} - Запись(ей))
+        </Text>
+        <TouchableOpacity onPress={handleRouteList}>
           <Text> Отчет </Text>
         </TouchableOpacity>
       </View>
