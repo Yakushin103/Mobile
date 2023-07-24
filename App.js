@@ -16,6 +16,8 @@ import "react-native-gesture-handler";
 
 import MainStack from "./navigate";
 
+import { loginUserApi } from "./api/api";
+
 // import Main from "./pages/Main";
 
 export default function App() {
@@ -26,15 +28,22 @@ export default function App() {
   async function getStorage() {
     try {
       const value = await AsyncStorage.getItem("login");
-      setIsLogin(value);
+      setIsLogin(null);
+      // setIsLogin(value);
     } catch (error) {
       console.log("ERROR", error);
     }
   }
 
   async function loginHandle() {
-    await AsyncStorage.setItem("login", email);
-    setIsLogin(email);
+    let checkUser = await loginUserApi({ login: email, password: password });
+
+    if (checkUser.success) {
+      await AsyncStorage.setItem("login", email);
+      setIsLogin(email);
+    } else {
+      setIsLogin(null);
+    }
   }
 
   useEffect(() => {
@@ -63,7 +72,7 @@ export default function App() {
             <Text
               style={{ textAlign: "center", marginTop: 16, marginBottom: 16 }}
             >
-              Вход в систему Ptender
+              Вход в АТП
             </Text>
 
             <TextInput
